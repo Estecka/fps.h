@@ -14,7 +14,6 @@
 #include <time.h>
 #include "fps.h"
 
-#define PERIOD 1
 #define CLOCKS_TO_MS (1000/(float)CLOCKS_PER_SEC)
 
 static unsigned int watchcalls = 0;
@@ -32,7 +31,7 @@ extern void	StopWatch()
 	watchcalls++;
 }
 
-extern void	FpsLoop()
+extern short FpsLoop()
 {
 	static clock_t prevTime = 0; 
 	static clock_t lastPeriod = 0;
@@ -44,7 +43,8 @@ extern void	FpsLoop()
 	g_deltatime = (currentTime - prevTime) / (float)CLOCKS_PER_SEC;
 
 	clock_t inter = currentTime - lastPeriod;
-	if (inter > (PERIOD * CLOCKS_PER_SEC))
+	short isPeriod = inter > (PERIOD * CLOCKS_PER_SEC);
+	if (isPeriod)
 	{
 		float interms = inter * CLOCKS_TO_MS;
 
@@ -64,4 +64,5 @@ extern void	FpsLoop()
 		framecount = 0;
 	}
 	prevTime = currentTime;
+	return isPeriod;
 }
