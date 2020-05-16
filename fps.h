@@ -20,6 +20,9 @@
 #define PERIOD 1
 #endif
 
+/*
+* The amount of time in seconds, between the beginning of the current frame and the previous one.
+*/
 float   g_deltatime;
 
 
